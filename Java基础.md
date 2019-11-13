@@ -77,3 +77,39 @@
 > 组合技术通常用于想在新类中使用仙有泪的功能而非它的接口的情形。即在新类中嵌入某个对象，让其实现所需要的功能，但新类的用户看到的只是为新类所定义的接口，而非所嵌入对象的接口。
 
 > 继承是使用某个现有类并开发一个它的特殊版本。通常这意味着你在使用一个通用类，并为了某种特殊需要而将其特殊化。
+
+## final和private关键字
+> 类中所有的private方法都隐式地指定为final。由于无法取得private方法，所以也就无法覆盖它。如果试图覆盖一个private方法，实际上是在导出类生成了一个新的方法。
+
+# 多态
+> 只有普通的方法调用可以是多态的。例如，如果你直接访问某个域，这个访问就将在编译期进行解析;如果某个方法是静态的，它的行为就不具有多态性。
+
+
+	public class StaticPolymorphism {
+		public static void main(String[] args) {
+			StaticSuper sup = new StaticSub();
+			// 静态对象是与类，而并非单个的对象相关联的
+			System.out.println(sup.staticGet());
+			System.out.println(sup.dynamicGet());
+		}
+	}
+	
+	class StaticSuper {
+		public static String staticGet() {
+			return "Base staticGet()";
+		}
+		
+		public String dynamicGet() {
+			return "Base dynamicGet()";
+		}
+	}
+	
+	class StaticSub extends StaticSuper {
+		public static String staticGet() {
+			return "Derived staticGet";
+		}
+		
+		public String dynamicGet() {
+			return "Derived dynamicGet()";
+		}
+	}
